@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
 
 public class GameBoard extends JFrame {
@@ -16,7 +15,7 @@ public class GameBoard extends JFrame {
   // private ImageIcon easy = new ImageIcon(getClass().getResource(".png"));
   // private ImageIcon mid = new ImageIcon(getClass().getResource(".png"));
   // private ImageIcon hard = new ImageIcon(getClass().getResource(".png"));
-  
+
   int x = 0;
   int y = 0;
   
@@ -33,6 +32,13 @@ public class GameBoard extends JFrame {
     grid.setLayout(new GridLayout(9,9));
     grid.setPreferredSize(new Dimension(600, 600));
     grid.setAlignmentY(Component.LEFT_ALIGNMENT);
+    grid.add(new JLabel("balls"));
+    grid.add(new JButton("suck"));
+    grid.add(new JButton("balls"));
+    grid.add(new JButton("suck"));
+    grid.add(new JButton("balls"));
+    grid.add(new JButton("suck"));
+    grid.add(new JButton("balls"));
 
     sidebar.setLayout(new BorderLayout());
     sidebar.add(stuff, BorderLayout.NORTH);

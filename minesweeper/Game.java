@@ -10,8 +10,8 @@ public abstract class Game {
     powerUps = p;
     tiles = t;
 
-    int size = Math.sqrt(t);
-    Tile matrix = new Tile[size][size];
+    // int size = Math.sqrt(t);
+    // Tile matrix = new Tile[size][size];
   }
 
   public String getDifficulty () {
