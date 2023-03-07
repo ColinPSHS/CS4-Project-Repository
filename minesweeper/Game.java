@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Game {
   protected final String difficulty;
   protected final int mines, powerUps, tiles;
@@ -7,6 +9,9 @@ public abstract class Game {
     mines = m;
     powerUps = p;
     tiles = t;
+
+    int size = Math.sqrt(t);
+    Tile matrix = new Tile[size][size];
   }
 
   public String getDifficulty () {
