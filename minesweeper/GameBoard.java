@@ -17,6 +17,8 @@ public class GameBoard extends JFrame {
   // private ImageIcon mid = new ImageIcon(getClass().getResource(".png"));
   // private ImageIcon hard = new ImageIcon(getClass().getResource(".png"));
   
+  int x = 0;
+  int y = 0;
   
   public GameBoard() {
     super("Minesweeper++");
@@ -28,7 +30,7 @@ public class GameBoard extends JFrame {
 
     this.getContentPane().setBackground(Color.yellow);
 
-    grid.setLayout(new GridLayout(10,10));
+    grid.setLayout(new GridLayout(9,9));
     grid.setPreferredSize(new Dimension(600, 600));
     grid.setAlignmentY(Component.LEFT_ALIGNMENT);
 
