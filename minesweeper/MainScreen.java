@@ -24,6 +24,7 @@ public class MainScreen extends JFrame {
     super("Minesweeper++");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
+    this.setSize(800, 600);
 
     this.add(header, BorderLayout.NORTH);
     this.add(selection, BorderLayout.CENTER);
@@ -46,10 +47,5 @@ public class MainScreen extends JFrame {
     selection.add(diff1);
     selection.add(diff2);
     selection.add(diff3);
-    
-
-    this.setSize(800, 600);
-
-    this.pack();
   }
 }
