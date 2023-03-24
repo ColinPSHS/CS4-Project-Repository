@@ -12,15 +12,15 @@ public class MainScreen extends JFrame implements ActionListener {
   JPanel header = new JPanel();
   JPanel selection = new JPanel();
 
-  // private ImageIcon head = new ImageIcon(getClass().getResource(".png"));
-  // private ImageIcon easy = new ImageIcon(getClass().getResource(".png"));
-  // private ImageIcon mid = new ImageIcon(getClass().getResource(".png"));
-  // private ImageIcon hard = new ImageIcon(getClass().getResource(".png"));
+  private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/title.png"));
+  private ImageIcon easy = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/easy.png"));
+  private ImageIcon mid = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/normal.png"));
+  private ImageIcon hard = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/hard.png"));
   
-  private JLabel title = new JLabel("minesweeper++"); //JLabel(head, JLabel.CENTER);
-  private JButton diff1 = new JButton("easy");
-  private JButton diff2 = new JButton("medium");
-  private JButton diff3 = new JButton("hard");
+  private JLabel title = new JLabel(head, JLabel.CENTER);
+  private JButton diff1 = new JButton(easy);
+  private JButton diff2 = new JButton(mid);
+  private JButton diff3 = new JButton(hard);
   
   
   public MainScreen() {
@@ -34,9 +34,9 @@ public class MainScreen extends JFrame implements ActionListener {
 
     this.getContentPane().setBackground(Color.yellow);
 
-    header.setLayout(new FlowLayout());
+    header.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     header.add(title);
-    header.setPreferredSize(new Dimension(700, 100));
+    header.setPreferredSize(new Dimension(800, 155));
     header.setAlignmentY(Component.CENTER_ALIGNMENT);
 
     title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
