@@ -26,7 +26,7 @@ public abstract class Game {
 
     Border blackline = BorderFactory.createLineBorder(Color.black);
 
-    GameBoard game = new GameBoard(size);
+    GameBoard game = new GameBoard(size, this);
     game.setVisible(true);
     
     gridMatrix = new ArrayList<>();
@@ -41,7 +41,7 @@ public abstract class Game {
         gridMatrix.get(i).add(tile);
 
         JButton cell = new JButton(tile.getType());
-        cell.setPreferredSize(new Dimension(65, 65));
+        // cell.setPreferredSize(new Dimension(65, 65));
         game.grid.add(cell);
         cell.setBorder(blackline);
       }

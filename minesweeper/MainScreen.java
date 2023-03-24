@@ -1,11 +1,14 @@
 import javax.swing.*;
+import javax.swing.JFrame;
+
 import java.awt.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.JFrame;
+import java.awt.event.*;
 
-public class MainScreen extends JFrame {
+
+public class MainScreen extends JFrame implements ActionListener {
   JPanel header = new JPanel();
   JPanel selection = new JPanel();
 
@@ -15,9 +18,9 @@ public class MainScreen extends JFrame {
   // private ImageIcon hard = new ImageIcon(getClass().getResource(".png"));
   
   private JLabel title = new JLabel("minesweeper++"); //JLabel(head, JLabel.CENTER);
-  private JLabel diff1 = new JLabel("easy");
-  private JLabel diff2 = new JLabel("medium");
-  private JLabel diff3 = new JLabel("hard");
+  private JButton diff1 = new JButton("easy");
+  private JButton diff2 = new JButton("medium");
+  private JButton diff3 = new JButton("hard");
   
   
   public MainScreen() {
@@ -36,7 +39,9 @@ public class MainScreen extends JFrame {
     header.setPreferredSize(new Dimension(700, 100));
     header.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-    selection.setLayout(new BoxLayout(selection, BoxLayout.Y_AXIS));
+    title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
+
+    selection.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 25));
 
     diff1.setAlignmentX(Component.CENTER_ALIGNMENT);
     diff2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,8 +49,27 @@ public class MainScreen extends JFrame {
     diff1.setPreferredSize(new Dimension(700, 100));
     diff2.setPreferredSize(new Dimension(700, 100));
     diff3.setPreferredSize(new Dimension(700, 100));
+    diff1.addActionListener(this);
+    diff2.addActionListener(this);
+    diff3.addActionListener(this);
     selection.add(diff1);
     selection.add(diff2);
     selection.add(diff3);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == diff1) {
+      Game game = new EasyGame();
+      this.setEnabled(false);
+    }
+    if (e.getSource() == diff2) {
+      Game game = new MediumGame();
+      this.setEnabled(false);
+    }
+    if (e.getSource() == diff3) {
+      Game game = new HardGame();
+      this.setEnabled(false);
+    }
   }
 }

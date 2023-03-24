@@ -25,7 +25,7 @@ public class GameBoard extends JFrame {
 
   Border blackline = BorderFactory.createLineBorder(Color.black);
   
-  public GameBoard(int size) {
+  public GameBoard(int size, Game game) {
     super("Minesweeper++");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
@@ -36,7 +36,7 @@ public class GameBoard extends JFrame {
 
     this.getContentPane().setBackground(Color.yellow);
 
-    grid.setLayout(new GridLayout(9,9));
+    grid.setLayout(new GridLayout(size, size));
     grid.setPreferredSize(new Dimension(600, 600));
     grid.setAlignmentX(Component.LEFT_ALIGNMENT);
     
@@ -55,7 +55,7 @@ public class GameBoard extends JFrame {
     sidebar.setPreferredSize(new Dimension(200, 600));
 
 
-    JLabel hardness = new JLabel("Easy");
+    JLabel hardness = new JLabel(game.difficulty);
     stuff.setPreferredSize(new Dimension(200, 200));
     stuff.setLayout(new BorderLayout());
     stuff.add(hardness, BorderLayout.NORTH);

@@ -1,5 +1,5 @@
 public class EasyGame extends Game {
   public EasyGame() {
-    super("easy", 18, 3, 9);
+    super("Easy", 16, 3, 8);
   }
 }

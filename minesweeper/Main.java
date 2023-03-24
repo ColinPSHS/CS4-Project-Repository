@@ -6,7 +6,7 @@ class Main {
     System.out.println("Hello world!");
     // EasyGame minesweeper = new EasyGame();
 
-    JFrame screen = new EndScreen();
+    JFrame screen = new MainScreen();
     screen.setVisible(true);
   }
 }
