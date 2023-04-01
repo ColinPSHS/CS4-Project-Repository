@@ -3,13 +3,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Color;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-public class GameBoard extends JFrame {
+public class GameBoard extends JFrame implements ActionListener {
   JPanel grid = new JPanel();
   JPanel sidebar = new JPanel();
   JPanel stuff = new JPanel();
@@ -25,7 +26,7 @@ public class GameBoard extends JFrame {
 
   Border blackline = BorderFactory.createLineBorder(Color.black);
   
-  public GameBoard(int size, Game game) {
+  public GameBoard(int size, Board board) {
     super("Minesweeper++");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
@@ -39,23 +40,13 @@ public class GameBoard extends JFrame {
     grid.setLayout(new GridLayout(size, size));
     grid.setPreferredSize(new Dimension(600, 600));
     grid.setAlignmentX(Component.LEFT_ALIGNMENT);
-    
-    // for (int i = 0; i < size; i++) {
-    //   for (int j = 0; j < size; j++) {
-        
-    //     tile.setPreferredSize(new Dimension(65, 65));
-    //     grid.add(tile);
-    //     tile.setBorder(blackline);
-    //   }
-    // }
 
     sidebar.setLayout(new BorderLayout());
     sidebar.add(stuff, BorderLayout.NORTH);
     sidebar.add(inventory, BorderLayout.CENTER);
     sidebar.setPreferredSize(new Dimension(200, 600));
 
-
-    JLabel hardness = new JLabel(game.difficulty);
+    JLabel hardness = new JLabel(board.diff);
     stuff.setPreferredSize(new Dimension(200, 200));
     stuff.setLayout(new BorderLayout());
     stuff.add(hardness, BorderLayout.NORTH);
@@ -63,6 +54,11 @@ public class GameBoard extends JFrame {
     hardness.setAlignmentY(Component.CENTER_ALIGNMENT);
     
     inventory.setPreferredSize(new Dimension(200, 400));
+  }
+
+  @Override
+  public void actionPerformed (ActionEvent e) {
+    
   }
 
 }

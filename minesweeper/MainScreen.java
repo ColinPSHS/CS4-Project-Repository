@@ -16,11 +16,13 @@ public class MainScreen extends JFrame implements ActionListener {
   private ImageIcon easy = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/easy.png"));
   private ImageIcon mid = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/normal.png"));
   private ImageIcon hard = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/hard.png"));
+  private ImageIcon about = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/about.png"));
   
   private JLabel title = new JLabel(head, JLabel.CENTER);
   private JButton diff1 = new JButton(easy);
   private JButton diff2 = new JButton(mid);
   private JButton diff3 = new JButton(hard);
+  private JButton info = new JButton(about);
   
   
   public MainScreen() {
@@ -32,8 +34,6 @@ public class MainScreen extends JFrame implements ActionListener {
     this.add(header, BorderLayout.NORTH);
     this.add(selection, BorderLayout.CENTER);
 
-    this.getContentPane().setBackground(Color.yellow);
-
     header.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     header.add(title);
     header.setPreferredSize(new Dimension(800, 155));
@@ -41,20 +41,24 @@ public class MainScreen extends JFrame implements ActionListener {
 
     title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
 
-    selection.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 25));
+    selection.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 5));
 
     diff1.setAlignmentX(Component.CENTER_ALIGNMENT);
     diff2.setAlignmentX(Component.CENTER_ALIGNMENT);
     diff3.setAlignmentX(Component.CENTER_ALIGNMENT);
+    info.setAlignmentX(Component.CENTER_ALIGNMENT);
     diff1.setPreferredSize(new Dimension(700, 100));
     diff2.setPreferredSize(new Dimension(700, 100));
     diff3.setPreferredSize(new Dimension(700, 100));
+    info.setPreferredSize(new Dimension(700, 100));
     diff1.addActionListener(this);
     diff2.addActionListener(this);
     diff3.addActionListener(this);
+    info.addActionListener(this);
     selection.add(diff1);
     selection.add(diff2);
     selection.add(diff3);
+    selection.add(info);
   }
 
   @Override
@@ -69,6 +73,10 @@ public class MainScreen extends JFrame implements ActionListener {
     }
     if (e.getSource() == diff3) {
       Game game = new HardGame();
+      this.setEnabled(false);
+    }
+    if (e.getSource() == info) {
+      InfoScreen information = new InfoScreen();
       this.setEnabled(false);
     }
   }

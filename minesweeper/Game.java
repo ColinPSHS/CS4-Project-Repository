@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import java.awt.*;
 import java.awt.Component;
@@ -14,8 +15,11 @@ import javax.swing.border.Border;
 public abstract class Game {
   protected final String difficulty;
   protected final int mines, powerUps, size, tiles;
+  protected boolean lost = false;
 
   ArrayList<ArrayList<Tile>> gridMatrix;
+  ArrayList<Tile> mineX;
+  ArrayList<Tile> mineY;
   
   public Game(String d, int m, int p, int s) { 
     difficulty = d;
@@ -26,26 +30,40 @@ public abstract class Game {
 
     Border blackline = BorderFactory.createLineBorder(Color.black);
 
-    GameBoard game = new GameBoard(size, this);
-    game.setVisible(true);
+    Random rand = new Random(); 
     
-    gridMatrix = new ArrayList<>();
+    gridMatrix = new ArrayList<>(size);
+    mineX = new ArrayList<Tile>(mines);
+    mineY = new ArrayList<Tile>(mines);
 
     for(int i=0; i < s; i++) {
-      gridMatrix.add(new ArrayList<Tile>());
+      gridMatrix.add(new ArrayList<Tile>(size));
     }
+
+    System.out.println(gridMatrix.size());
+    System.out.println(gridMatrix.get(0).size());
+
+    System.out.println(gridMatrix);
 
     for (int i = 0; i < s; i++) {
       for (int j = 0; j < s; j++) {
-        Tile tile = new Tile("mine");
+        Tile tile = new Tile("safe", this, j, i);
         gridMatrix.get(i).add(tile);
-
-        JButton cell = new JButton(tile.getType());
-        // cell.setPreferredSize(new Dimension(65, 65));
-        game.grid.add(cell);
-        cell.setBorder(blackline);
       }
     }
+
+    for (int i = 0; i < mines; i++) {
+      int x = rand.nextInt(size);
+      int y = rand.nextInt(size);
+
+      if (gridMatrix.get(y).get(x).type == "safe") {
+        gridMatrix.get(y).set(x, new Tile("mine", this, x, y));
+      } else {
+        i--;
+      }
+    }
+
+    Board game = new Board(size, this, difficulty);
 
   }
 
