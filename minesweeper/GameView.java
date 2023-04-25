@@ -10,11 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-public class GameBoard extends JFrame implements ActionListener {
+public class GameView extends JFrame {
   JPanel grid = new JPanel();
   JPanel sidebar = new JPanel();
   JPanel stuff = new JPanel();
   JPanel inventory = new JPanel();
+
+  Board board;
 
   // private ImageIcon head = new ImageIcon(getClass().getResource(".png"));
   // private ImageIcon easy = new ImageIcon(getClass().getResource(".png"));
@@ -26,11 +28,13 @@ public class GameBoard extends JFrame implements ActionListener {
 
   Border blackline = BorderFactory.createLineBorder(Color.black);
   
-  public GameBoard(int size, Board board) {
+  public GameView(int size, Board b) {
     super("Minesweeper++");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setSize(800, 600);
+
+    board = b;
 
     this.add(grid, BorderLayout.CENTER);
     this.add(sidebar, BorderLayout.EAST);
@@ -55,10 +59,4 @@ public class GameBoard extends JFrame implements ActionListener {
     
     inventory.setPreferredSize(new Dimension(200, 400));
   }
-
-  @Override
-  public void actionPerformed (ActionEvent e) {
-    
-  }
-
 }

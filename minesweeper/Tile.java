@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Tile {
   protected final String type;
   boolean dug = false;
+  boolean flag = false;
   Game game;
   int number = 0;
   int x, y;
+  ArrayList<ArrayList<Tile>> array;
   
   public Tile(String t, Game g, int X, int Y) {
     type = t;
@@ -13,7 +15,7 @@ public class Tile {
     x = X;
     y = Y;
 
-    ArrayList<ArrayList<Tile>> array = game.getGridMatrix();
+    array = game.getGridMatrix();
   }
 
   public String getType () {
@@ -31,19 +33,32 @@ public class Tile {
   public void dig() {
     if (type == "mine") {
       game.lost = true;
-      dug == true;
+      dug = true;
+      game.checkState();
     } else if (type == "safe") {
       for (int i = -1; i < 2; i++) {
         for (int j = -1; j < 2; j++) {
-          if (array.get(i).get(j).getType() == "mine") {
-            number++;
+          if (((x + j) < 0) || ((y + i) < 0) || ((x + j) >= array.size()) || ((y + i) >= array.size())) {
+            continue;
+          } else {
+            if (array.get(y + i).get(x + j).getType() == "mine") {
+              number++;
+            }
           }
         }
       }
 
-      dug == true;
+      dug = true;
     } else if (type == "powerup") {
       
     } 
+  }
+
+  public void flagTile() {
+    if (flag) {
+      flag = false;
+    } else {
+      flag = true;
+    }
   }
 }

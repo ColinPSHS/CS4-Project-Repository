@@ -14,12 +14,16 @@ import javax.swing.border.Border;
 
 public abstract class Game {
   protected final String difficulty;
-  protected final int mines, powerUps, size, tiles;
+  protected final int mines, powerUps, size, tiles, safes, dug;
   protected boolean lost = false;
+  protected boolean end = false;
+  protected ArrayList<Powerup> inventory;
 
   ArrayList<ArrayList<Tile>> gridMatrix;
   ArrayList<Tile> mineX;
   ArrayList<Tile> mineY;
+
+  Board game;
   
   public Game(String d, int m, int p, int s) { 
     difficulty = d;
@@ -27,6 +31,8 @@ public abstract class Game {
     powerUps = p;
     size = s;
     tiles = s*s;
+    safes = tiles - mines;
+    dug = 0;
 
     Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -61,9 +67,15 @@ public abstract class Game {
       } else {
         i--;
       }
+
+      /*if (gridMatrix.get(y).get(x).type == "safe") {
+        gridMatrix.get(y).set(x, new Tile("powerup", this, x, y));
+      } else {
+        i--;
+      }*/
     }
 
-    Board game = new Board(size, this, difficulty);
+    game = new Board(size, this, difficulty);
 
   }
 
@@ -85,5 +97,14 @@ public abstract class Game {
 
   public ArrayList<ArrayList<Tile>> getGridMatrix() {
     return gridMatrix;
+  }
+
+  public void checkState () {
+    if ((dug == safes) || (lost)) {
+      System.out.println("lost");
+      EndScreen endScreen = new EndScreen();
+      endScreen.setVisible(true);
+      game.display.dispose();
+    }
   }
 }
