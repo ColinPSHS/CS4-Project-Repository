@@ -20,12 +20,28 @@ public class Tile {
     return type;
   }
 
+  public int getNum () {
+    return number;
+  }
+
+  public boolean getDigState () {
+    return dug;
+  }
+
   public void dig() {
     if (type == "mine") {
       game.lost = true;
+      dug == true;
     } else if (type == "safe") {
-      // for (int i = 0)
-      
+      for (int i = -1; i < 2; i++) {
+        for (int j = -1; j < 2; j++) {
+          if (array.get(i).get(j).getType() == "mine") {
+            number++;
+          }
+        }
+      }
+
+      dug == true;
     } else if (type == "powerup") {
       
     } 

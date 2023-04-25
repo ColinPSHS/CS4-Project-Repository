@@ -76,7 +76,7 @@ public class MainScreen extends JFrame implements ActionListener {
       this.setEnabled(false);
     }
     if (e.getSource() == info) {
-      InfoScreen information = new InfoScreen();
+      InfoScreen information = new InfoScreen(this);
       this.setEnabled(false);
     }
   }

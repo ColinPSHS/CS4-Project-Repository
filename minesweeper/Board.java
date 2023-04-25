@@ -17,6 +17,7 @@ public class Board {
   protected final String diff;
   
   ArrayList<ArrayList<Tile>> board;
+  JButton[][] buttonGrid;
   
   public Board(int s, Game g, String d) {
     size = s;
@@ -26,6 +27,7 @@ public class Board {
     Border blackline = BorderFactory.createLineBorder(Color.black);
 
     board = new ArrayList<>();
+    buttonGrid = new JButton[size][size];
 
     GameBoard display = new GameBoard(size, this);
     display.setVisible(true);
@@ -34,15 +36,16 @@ public class Board {
       board.add(new ArrayList<Tile>());
     }
 
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
         ArrayList<ArrayList<Tile>> get = game.getGridMatrix();
-        Tile tile = get.get(i).get(j);;
-        board.get(i).add(tile);
+        Tile tile = get.get(y).get(x);
+        board.get(y).add(tile);
 
         JButton cell = new JButton(tile.getType()); 
         // cell.setPreferredSize(new Dimension(65, 65));
         display.grid.add(cell);
+        buttonGrid[y][x] == cell;
         cell.setBorder(blackline);
       }
     }
@@ -54,6 +57,20 @@ public class Board {
   }
 
   public void writeBoard () {
-    
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        Tile tile = board.get(i).get(j);
+
+        JButton cell = buttonGrid[y][x];
+        
+        if (tile.getDigState()) {
+          if (tile.getType() == "mine") {
+            cell.setIcon();
+          } else if (tile.getType() == "safe") {
+            cell.setIcon("minesweeper/imgs/" + tile.getNum() + ".png");
+          }
+        }
+      }
+    }
   }
 }
