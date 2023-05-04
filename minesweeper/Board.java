@@ -69,13 +69,20 @@ public class Board implements ActionListener, KeyListener {
   public void writeBoard () {
     for (int y = 0; y < size; y++) {
       for (int x = 0; x < size; x++) {
+        ArrayList<ArrayList<Tile>> get = game.getGridMatrix();
+        Tile tile = get.get(y).get(x);
+        board.get(y).set(x, tile);
+      }
+    }
+    
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
         Tile tile = board.get(y).get(x);
 
         JButton cell = buttonGrid[y][x];
 
-        if (tile.flag) {
-          cell.setText("flag");
-        }
+        
+        
         
         if (tile.getDigState()) {
           if (tile.getType() == "mine") {
@@ -83,11 +90,20 @@ public class Board implements ActionListener, KeyListener {
           } else if (tile.getType() == "safe") {
             cell.setText(Integer.toString(tile.getNum()));
             // cell.setIcon("minesweeper/imgs/" + tile.getNum() + ".png");
+          } else if (tile.getType() == "powerup") {
+            cell.setText(Integer.toString(tile.getNum()));
           }
 
+        } else {
+          if (tile.flag) {
+          cell.setText("flag");
+        } else {
+          cell.setText("");
+        }
         }
       }
     }
+    System.out.println(board);
     }
    public void selection(String s) {
       if (s.equals("D")) {
@@ -95,6 +111,7 @@ public class Board implements ActionListener, KeyListener {
         writeBoard();
       } else if (s.equals("F")) {
         board.get(selectedY).get(selectedX).flagTile();
+        writeBoard();
       } else {
         System.out.println("null");
       }

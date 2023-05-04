@@ -4,10 +4,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JFrame;
+import java.awt.event.*;
 
-public class EndScreen extends JFrame {
+public class EndScreen extends JFrame implements ActionListener {
   JPanel message = new JPanel();
   JPanel buttons = new JPanel();
+
+  JButton playAg, mainMen;
 
   String gameState = "You win!";
 
@@ -18,8 +21,8 @@ public class EndScreen extends JFrame {
     this.setSize(800, 600);
 
     JLabel winOrLose = new JLabel(gameState);
-    JButton playAg = new JButton("Play Again");
-    JButton mainMen = new JButton("Main Menu");
+    playAg = new JButton("Play Again");
+    mainMen = new JButton("Main Menu");
 
     this.add(message, BorderLayout.CENTER);
     this.add(buttons, BorderLayout.SOUTH);
@@ -28,6 +31,16 @@ public class EndScreen extends JFrame {
     message.add(winOrLose);
 
     buttons.add(playAg);
+    playAg.addActionListener(this);
     buttons.add(mainMen);
+    mainMen.addActionListener(this);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == playAg) {
+      Game game = new EasyGame();
+      this.dispose();
+    }
   }
 }
