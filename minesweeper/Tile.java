@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Tile {
   protected final String type;
@@ -8,6 +9,8 @@ public class Tile {
   int number = 0;
   int x, y;
   ArrayList<ArrayList<Tile>> array;
+
+  Random rand = new Random(); 
 
   public Tile(String t, Game g, int X, int Y) {
     type = t;
@@ -48,8 +51,9 @@ public class Tile {
 
   public void dig() {
     if (!dug) {
+      dug = true;
       if (!game.firstDig) {
-        game.generateGame();
+        game.generateGame(x, y);
         game.firstDig = true;
         System.out.println(game.firstDig);
       }
@@ -58,11 +62,23 @@ public class Tile {
         game.checkState();
       } else if (type == "safe") {
         checkNumber();
+        game.dug++;
+        game.checkState();
       } else if (type == "powerup") {
-        // add powerup
         checkNumber();
+        game.dug++;
+        game.checkState();
+        // add powerup
+        int x = rand.nextInt(3);
+
+        if (x == 0) {
+          new ReverseMine(game);
+        } else if (x == 1) {
+          new Defuser(game);
+        } else if (x == 2) {
+          new Xray(game);
+        }
       }
-      dug = true;
     }
 
   }

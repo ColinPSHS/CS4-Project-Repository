@@ -45,6 +45,8 @@ public class GameView extends JFrame {
     grid.setPreferredSize(new Dimension(600, 600));
     grid.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+    inventory.setLayout(new GridLayout(3, 2));
+    
     sidebar.setLayout(new BorderLayout());
     sidebar.add(stuff, BorderLayout.NORTH);
     sidebar.add(inventory, BorderLayout.CENTER);

@@ -21,6 +21,9 @@ public class Board implements ActionListener, KeyListener {
   
   ArrayList<ArrayList<Tile>> board;
   JButton[][] buttonGrid;
+  ArrayList<JButton> sideButtons;
+  ArrayList<JLabel> counters;
+  ArrayList<ImageIcon> tilePics;
 
   JButton selected;
 
@@ -36,10 +39,18 @@ public class Board implements ActionListener, KeyListener {
     board = new ArrayList<>();
     buttonGrid = new JButton[size][size];
 
+    sideButtons = new ArrayList<>(3);
+    counters = new ArrayList<>(3);
+    
+
     display = new GameView(size, this);
     display.setVisible(true);
 
     for(int i=0; i < size; i++) {
+      tilePics.add(new ImageIcon(Board.class.getResource("minesweeper/imgs/mines " + Integer.toString(i) + ".png")));
+    }
+
+    for(int i=0; i < 9; i++) {
       board.add(new ArrayList<Tile>());
     }
 
@@ -59,6 +70,19 @@ public class Board implements ActionListener, KeyListener {
         cell.setBorder(blackline);
       }
     }
+
+    for (int i = 0; i < 3; i++) {
+      JLabel num = new JLabel("0");
+      JButton button = new JButton(Integer.toString(i));
+
+      counters.add(num);
+      sideButtons.add(button);
+      
+      display.inventory.add(counters.get(i));
+      display.inventory.add(sideButtons.get(i));
+    }
+
+    sideButtons.get(0).setEnabled(false);
 
   }
    
@@ -88,8 +112,8 @@ public class Board implements ActionListener, KeyListener {
           if (tile.getType() == "mine") {
             // cell.setIcon("minesweeper/imgs/mine.png");
           } else if (tile.getType() == "safe") {
-            cell.setText(Integer.toString(tile.getNum()));
-            // cell.setIcon("minesweeper/imgs/" + tile.getNum() + ".png");
+            // cell.setText(Integer.toString(tile.getNum()));
+            cell.setIcon(tilePics.get(tile.getNum()));
           } else if (tile.getType() == "powerup") {
             cell.setText(Integer.toString(tile.getNum()));
           }
@@ -98,12 +122,43 @@ public class Board implements ActionListener, KeyListener {
           if (tile.flag) {
           cell.setText("flag");
         } else {
-          cell.setText("");
+          cell.setText(tile.getType()); //tile.getType()
         }
         }
       }
     }
-    System.out.println(board);
+
+    int x = 0;
+    int r = 0;
+    int d = 0;
+    
+    for (int i = 0; i < game.inventory.size(); i++) {
+      Powerup power = game.inventory.get(i);
+
+      if (power.getType().equals("Xray")) {
+        x++;
+      } else if (power.getType().equals("Defuser")) {
+        d++;
+      } else if (power.getType().equals("ReverseMine")) {
+        r++;
+      }
+
+      counters.get(0).setText(Integer.toString(d));
+      counters.get(1).setText(Integer.toString(r));
+      counters.get(2).setText(Integer.toString(x));
+      
+      if (r > 0) {
+        sideButtons.get(1).setEnabled(true);
+      } else {
+        sideButtons.get(1).setEnabled(false);
+      }
+
+      if (x > 0) {
+        sideButtons.get(2).setEnabled(true);
+      } else {
+        sideButtons.get(2).setEnabled(false);
+      }
+    }
     }
    public void selection(String s) {
       if (s.equals("D")) {

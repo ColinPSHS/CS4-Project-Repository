@@ -9,7 +9,9 @@ public abstract class Powerup{
   public Powerup(String t, Game g){
     type = t;
     game = g;
-    g.inventory.add(this);
+    game.inventory.add(this);
+
+    System.out.println(game.inventory);
   }
 
   public String getType(){

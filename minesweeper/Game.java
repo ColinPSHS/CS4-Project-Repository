@@ -14,7 +14,8 @@ import javax.swing.border.Border;
 
 public abstract class Game {
   protected final String difficulty;
-  protected final int mines, powerUps, size, tiles, safes, dug;
+  protected final int mines, powerUps, size, tiles, safes;
+  protected int dug;
   protected boolean lost = false;
   protected boolean end = false;
   public boolean firstDig = false;
@@ -40,6 +41,7 @@ public abstract class Game {
     
     gridMatrix = new ArrayList<>(size);
     mine = new ArrayList<Tile>(mines);
+    inventory = new ArrayList<Powerup>();
 
     for(int i=0; i < s; i++) {
       gridMatrix.add(new ArrayList<Tile>(size));
@@ -84,21 +86,28 @@ public abstract class Game {
   }
 
   public void checkState () {
-    if ((dug == safes) || (lost)) {
+    if (lost) {
       System.out.println("lost");
-      EndScreen endScreen = new EndScreen();
+      EndScreen endScreen = new EndScreen(lost);
+      endScreen.setVisible(true);
+      game.display.dispose();
+    } else if (dug == safes){
+      System.out.println("won");
+      EndScreen endScreen = new EndScreen(lost);
       endScreen.setVisible(true);
       game.display.dispose();
     }
   }
 
-  public void generateGame () {
+  public void generateGame (int a, int b) {
     for (int i = 0; i < mines; i++) {
       int x = rand.nextInt(size);
       int y = rand.nextInt(size);
 
       if (gridMatrix.get(y).get(x).type == "safe") {
         gridMatrix.get(y).set(x, new Tile("mine", this, x, y));
+      } else if (x == a && y == b) {
+        i--;
       } else {
         i--;
       }
