@@ -5,7 +5,6 @@ public abstract class Powerup{
   boolean used = false;
   Game game;
 
-  
   public Powerup(String t, Game g){
     type = t;
     game = g;
@@ -32,5 +31,5 @@ public abstract class Powerup{
     }
   }
 
-  public abstract void effect();
+  public abstract void effect(Board board);
 }

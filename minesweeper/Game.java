@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.*;
 import javax.swing.JFrame;
@@ -87,10 +88,24 @@ public abstract class Game {
 
   public void checkState () {
     if (lost) {
-      System.out.println("lost");
-      EndScreen endScreen = new EndScreen(lost);
-      endScreen.setVisible(true);
-      game.display.dispose();
+      boolean found = false;
+      
+      for (int i = 0; i < inventory.size(); i++) {
+        if (inventory.get(i).getType().equals("Defuser")) {
+          found = true;
+          inventory.get(i).remove();
+          break;
+        }
+      }
+
+      if (!found) {
+        System.out.println("lost");
+        EndScreen endScreen = new EndScreen(lost);
+        endScreen.setVisible(true);
+        game.display.dispose();
+      } else {
+        lost = false;
+      }
     } else if (dug == safes){
       System.out.println("won");
       EndScreen endScreen = new EndScreen(lost);

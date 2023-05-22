@@ -3,7 +3,8 @@ public class Defuser extends Powerup{
     super("Defuser", game);
   }
 
-  public void effect(){
-    
+  public void effect(Board board){
+    used = true;
+    remove();
   }
 }

@@ -1,28 +1,28 @@
 import javax.swing.*;
+import javax.swing.JFrame;
+
 import java.awt.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.JFrame;
 import java.awt.event.*;
 
 public class EndScreen extends JFrame implements ActionListener {
-  //private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/win.png"));
+  private ImageIcon winner = new ImageIcon(EndScreen.class.getResource("minesweeper/imgs/win.png"));
 
-    //private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/lose.png"));
+    private ImageIcon loser = new ImageIcon(EndScreen.class.getResource("minesweeper/imgs/lose.png"));
 
-    //private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/playag.png"));
+    private ImageIcon imgPlayAg = new ImageIcon(EndScreen.class.getResource("minesweeper/imgs/playag.png"));
 
-    //private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/mainmen.png"));
+    private ImageIcon imgMainMen = new ImageIcon(EndScreen.class.getResource("minesweeper/imgs/mainmen.png"));
 
-    //private ImageIcon head = new ImageIcon(MainScreen.class.getResource("minesweeper/imgs/tips.png"));
+    private ImageIcon helpTips = new ImageIcon(EndScreen.class.getResource("minesweeper/imgs/tips.png"));
   
   JPanel message = new JPanel();
   JPanel buttons = new JPanel();
+  JLabel messContent = new JLabel();
 
-  JButton playAg, mainMen;
-
-  String gameState = "You win!";
+  JButton playAg, mainMen, hTips;
   
 
   public EndScreen(boolean l) {
@@ -30,26 +30,36 @@ public class EndScreen extends JFrame implements ActionListener {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setSize(800, 600);
+    this.add(message, BorderLayout.NORTH);
+    this.add(buttons, BorderLayout.CENTER);
 
     if(!l){
-      gameState = "You win!";
+      messContent = new JLabel(winner, JLabel.CENTER);
     } else {
-      gameState = "You lost!";
+      messContent = new JLabel(loser, JLabel.CENTER);
     }
-    JLabel winOrLose = new JLabel(gameState);
-    playAg = new JButton("Play Again");
-    mainMen = new JButton("Main Menu");
 
-    this.add(message, BorderLayout.CENTER);
-    this.add(buttons, BorderLayout.SOUTH);
+    
+    playAg = new JButton(imgPlayAg);
+    mainMen = new JButton(imgMainMen);
+    hTips = new JButton(helpTips);
     
     message.setLayout(new FlowLayout());
-    message.add(winOrLose);
+    message.add(messContent);
 
+    playAg.setAlignmentX(Component.CENTER_ALIGNMENT);
+    mainMen.setAlignmentX(Component.CENTER_ALIGNMENT);
+    hTips.setAlignmentX(Component.CENTER_ALIGNMENT);
+    playAg.setPreferredSize(new Dimension(700, 100));
+    mainMen.setPreferredSize(new Dimension(700, 100));
+    hTips.setPreferredSize(new Dimension(700, 100));
     buttons.add(playAg);
-    playAg.addActionListener(this);
     buttons.add(mainMen);
+    buttons.add(hTips);
+    playAg.addActionListener(this);
     mainMen.addActionListener(this);
+    hTips.addActionListener(this);
+    
   }
 
   @Override
