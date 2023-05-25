@@ -1,0 +1,10 @@
+Don't click on a mine!
+Look at the board!
+Use the numbers!
+The numbers indicate the amount of mines around a tile!
+Maybe play a lower difficulty?
+There's a mine over there!
+Haha you lost!
+L.
+GG go next
+There's a quit button.

@@ -86,29 +86,29 @@ public abstract class Game {
     return gridMatrix;
   }
 
-  public void checkState () {
+  public void checkState (Tile tile) {
     if (lost) {
       boolean found = false;
       
       for (int i = 0; i < inventory.size(); i++) {
         if (inventory.get(i).getType().equals("Defuser")) {
           found = true;
-          inventory.get(i).remove();
-          break;
+          inventory.get(i).effect(game);
         }
       }
 
       if (!found) {
         System.out.println("lost");
-        EndScreen endScreen = new EndScreen(lost);
+        EndScreen endScreen = new EndScreen(lost, difficulty);
         endScreen.setVisible(true);
         game.display.dispose();
       } else {
         lost = false;
+        tile.dug = false;
       }
     } else if (dug == safes){
       System.out.println("won");
-      EndScreen endScreen = new EndScreen(lost);
+      EndScreen endScreen = new EndScreen(lost, difficulty);
       endScreen.setVisible(true);
       game.display.dispose();
     }

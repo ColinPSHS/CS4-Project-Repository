@@ -50,6 +50,7 @@ public class Tile {
   }
 
   public void dig() {
+    new Xray(game);
     if (!dug) {
       dug = true;
       if (!game.firstDig) {
@@ -59,15 +60,15 @@ public class Tile {
       }
       if (type == "mine") {
         game.lost = true;
-        game.checkState();
+        game.checkState(this);
       } else if (type == "safe") {
         checkNumber();
         game.dug++;
-        game.checkState();
+        game.checkState(this);
       } else if (type == "powerup") {
         checkNumber();
         game.dug++;
-        game.checkState();
+        game.checkState(this);
         // add powerup
         int x = rand.nextInt(3);
 

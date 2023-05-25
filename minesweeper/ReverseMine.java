@@ -43,7 +43,7 @@ public class ReverseMine extends Powerup{
       board.writeBoard();
   }
 
-    used = true;
+    this.used = true;
     remove();
 }
 }

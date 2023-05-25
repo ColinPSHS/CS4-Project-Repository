@@ -8,44 +8,48 @@ import java.awt.Image;
 import javax.swing.*;
 import javax.swing.JFrame;
 
-import java.util.Date; 
+import java.util.Date;
 
-public class Xray extends Powerup{
-  public Xray(Game game){
+public class Xray extends Powerup {
+  public Xray(Game game) {
     super("Xray", game);
   }
 
-  public void effect(Board b){
+  public void effect(Board b) {
     System.out.println("xray");
-    
+
+    this.used = true;
+
     try {
       for (int y = 0; y < b.size; y++) {
-      for (int x = 0; x < b.size; x++) {
-        if (b.board.get(y).get(x).getType() == "mine") {
-          if (!b.board.get(y).get(x).flag) {
-            b.buttonGrid[y][x].setIcon(b.resizeImage(new ImageIcon(Board.class.getResource("minesweeper/imgs/flag.png"))));
+        for (int x = 0; x < b.size; x++) {
+          if (b.board.get(y).get(x).getType().equals("mine")) {
+            if (!b.board.get(y).get(x).flag) {
+              ImageIcon i = new ImageIcon(Xray.class.getResource("minesweeper/imgs/flag.png"));
+              System.out.println(i);
+              b.buttonGrid[y][x]                  .setIcon(b.resizeImage(i));
+            }
           }
         }
       }
+      // b.display.repaint();
+      // b.display.revalidate();
+      Thread.sleep(5000);
+
+      // for (int y = 0; y < b.size; y++) {
+      // for (int x = 0; x < b.size; x++) {
+      // if (b.board.get(y).get(x).getType().equals("mine")) {
+      // if (!b.board.get(y).get(x).flag) {
+      // b.buttonGrid[y][x].setIcon(b.resizeImage(new
+      // ImageIcon(Xray.class.getResource("minesweeper/imgs/blank.png"))));
+      // }
+      // }
+      // }
+      // }
+    } catch (InterruptedException ex) {
+
     }
 
-    Thread.sleep(1000);   
-
-    for (int y = 0; y < b.size; y++) {
-      for (int x = 0; x < b.size; x++) {
-        if (b.board.get(y).get(x).getType() == "mine") {
-          if (!b.board.get(y).get(x).flag) {
-            b.buttonGrid[y][x].setIcon(b.resizeImage(new ImageIcon(Board.class.getResource("minesweeper/imgs/blank.png"))));
-          }
-        }
-      }
-    }
-    }
-      catch(InterruptedException ex) {
-
-    }
-    
-    
     used = true;
     remove();
   }

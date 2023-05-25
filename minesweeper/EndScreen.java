@@ -23,15 +23,18 @@ public class EndScreen extends JFrame implements ActionListener {
   JLabel messContent = new JLabel();
 
   JButton playAg, mainMen, hTips;
-  
 
-  public EndScreen(boolean l) {
+  String diff;
+
+  public EndScreen(boolean l, String d) {
     super("Minesweeper++");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setSize(800, 600);
     this.add(message, BorderLayout.NORTH);
     this.add(buttons, BorderLayout.CENTER);
+
+    diff = d;
 
     if(!l){
       messContent = new JLabel(winner, JLabel.CENTER);
@@ -65,12 +68,21 @@ public class EndScreen extends JFrame implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == playAg) {
-      Game game = new EasyGame();
+      if (diff.equals("Easy")) {
+        new EasyGame();
+      } else if (diff.equals("Medium")) {
+        new MediumGame();
+      } else if (diff.equals("Hard")) {
+        new HardGame();
+      }
       this.dispose();
     } else if (e.getSource() == mainMen) {
       JFrame screen = new MainScreen();
       screen.setVisible(true);
       this.dispose();
+    } else if (e.getSource() == hTips) {
+      JFrame screen = new TipsScreen();
+      screen.setVisible(true);
     }
   }
 }

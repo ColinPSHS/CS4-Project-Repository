@@ -4,7 +4,9 @@ public class Defuser extends Powerup{
   }
 
   public void effect(Board board){
-    used = true;
+    System.out.println("defuser");
+    
+    this.used = true;
     remove();
   }
 }

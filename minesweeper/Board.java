@@ -51,12 +51,12 @@ public class Board implements ActionListener, KeyListener {
     display = new GameView(size, this);
     display.setVisible(true);
 
-    for(int i=0; i < size; i++) {
+    for(int i=0; i < 8; i++) {
       ImageIcon pic = new ImageIcon(Board.class.getResource("minesweeper/imgs/mines/" + Integer.toString(i) + ".png"));
       tilePics.add(resizeImage(pic));
     }
 
-    for(int i=0; i < 9; i++) {
+    for(int i=0; i < size; i++) {
       board.add(new ArrayList<Tile>());
     }
 
@@ -95,8 +95,6 @@ public class Board implements ActionListener, KeyListener {
       display.inventory.add(sideButtons.get(i));
     }
 
-    sideButtons.get(0).setEnabled(false);
-
     sideButtons.get(1).addActionListener(new ActionListener() { 
       public void actionPerformed(ActionEvent e) { 
         
@@ -112,7 +110,7 @@ public class Board implements ActionListener, KeyListener {
       } 
     });
 
-    sideButtons.get(1).addActionListener(new ActionListener() { 
+    sideButtons.get(2).addActionListener(new ActionListener() { 
       public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < game.inventory.size(); i++) {
           if (game.inventory.get(i).getType() == "Xray") {
@@ -163,11 +161,13 @@ public class Board implements ActionListener, KeyListener {
         } else if (tile.flag) {
           cell.setIcon(resizeImage(new ImageIcon(Board.class.getResource("minesweeper/imgs/flag.png"))));
         } else {
-          cell.setIcon(resizeImage(new ImageIcon(Board.class.getResource("minesweeper/imgs/blank.png")))); //tile.getType()
+          cell.setIcon(resizeImage(new ImageIcon(Board.class.getResource("minesweeper/imgs/blank.png"))));
         }
         }
       }
 
+    System.out.println("write buttons");
+    
     int x = 0;
     int r = 0;
     int d = 0;
@@ -186,8 +186,15 @@ public class Board implements ActionListener, KeyListener {
       counters.get(0).setText(Integer.toString(d));
       counters.get(1).setText(Integer.toString(r));
       counters.get(2).setText(Integer.toString(x));
+    }
 
-      if (r > 0) {
+    if (d > 0) {
+        sideButtons.get(0).setEnabled(true);
+      } else {
+        sideButtons.get(0).setEnabled(false);
+      }
+    
+    if (r > 0) {
         sideButtons.get(1).setEnabled(true);
       } else {
         sideButtons.get(1).setEnabled(false);
@@ -198,10 +205,8 @@ public class Board implements ActionListener, KeyListener {
       } else {
         sideButtons.get(2).setEnabled(false);
       }
-    }
-    }
-
-    
+  }
+  
    public void selection(String s) {
       if (s.equals("D")) {
         board.get(selectedY).get(selectedX).dig();
